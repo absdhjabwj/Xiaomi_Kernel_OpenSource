@@ -191,10 +191,8 @@ ecdh_generic-y += ecdh_helper.o
 obj-y += ecdh_generic.o
 
 $(obj)/ecdsasignature.asn1.c $(obj)/ecdsasignature.asn1.h: $(src)/ecdsasignature.asn1
-	$(Q)$(PERL) $(srctree)/scripts/asn1_compiler.pl \
-		$(src)/ecdsasignature.asn1 \
-		$(obj)/ecdsasignature.asn1.c \
-		$(obj)/ecdsasignature.asn1.h
+	$(Q)$(objtree)/scripts/asn1_compiler $(src)/ecdsasignature.asn1 \
+		$(obj)/ecdsasignature.asn1.c $(obj)/ecdsasignature.asn1.h
 $(obj)/ecdsa.o: $(obj)/ecdsasignature.asn1.h
 $(obj)/ecdsasignature.asn1.o: $(obj)/ecdsasignature.asn1.c $(obj)/ecdsasignature.asn1.h
 ecdsa_generic-y += ecdsa.o
