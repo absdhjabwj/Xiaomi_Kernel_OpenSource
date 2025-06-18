@@ -190,8 +190,13 @@ ecdh_generic-y += ecdh_helper.o
 # N17 code for HQ-293392 by tongjiacheng at 20230427 start
 obj-y += ecdh_generic.o
 
-$(obj)/ecdsasignature.asn1.o: $(obj)/ecdsasignature.asn1.c $(obj)/ecdsasignature.asn1.h
+$(obj)/ecdsasignature.asn1.c $(obj)/ecdsasignature.asn1.h: $(src)/ecdsasignature.asn1
+	$(Q)$(PERL) $(srctree)/scripts/asn1_compiler.pl \
+		$(src)/ecdsasignature.asn1 \
+		$(obj)/ecdsasignature.asn1.c \
+		$(obj)/ecdsasignature.asn1.h
 $(obj)/ecdsa.o: $(obj)/ecdsasignature.asn1.h
+$(obj)/ecdsasignature.asn1.o: $(obj)/ecdsasignature.asn1.c $(obj)/ecdsasignature.asn1.h
 ecdsa_generic-y += ecdsa.o
 ecdsa_generic-y += ecdsasignature.asn1.o
 
